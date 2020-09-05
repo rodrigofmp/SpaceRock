@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private float shootTimer = 0f;
+
     public float Speed = 4f;
+    public float MinTimeToShoot = 1f;
+    public GameObject LaserObject;
 
     void Start()
     {
@@ -35,5 +39,32 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         rb.velocity = dir * Speed;
+    }
+
+    void Update()
+    {
+        if (shootTimer < MinTimeToShoot)
+        {
+            shootTimer += Time.deltaTime;
+        }        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {
+        if (MinTimeToShoot > shootTimer)
+            return;
+
+        shootTimer = 0;
+
+        if (LaserObject != null)
+        {
+            Vector3 pos = this.transform.position;
+            GameObject.Instantiate(LaserObject, pos, Quaternion.identity);
+        }
     }
 }
