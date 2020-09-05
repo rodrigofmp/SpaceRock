@@ -16,4 +16,12 @@ public class LaserBehaviour : MonoBehaviour
     {
         rb.velocity = Vector2.up * Speed;
     }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "MainCamera")
+        {
+            GameObject.Destroy(this.gameObject);
+        }
+    }
 }
