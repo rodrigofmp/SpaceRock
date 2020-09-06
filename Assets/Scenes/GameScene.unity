@@ -880,7 +880,8 @@ MonoBehaviour:
   ExplosionObject: {fileID: 2177155943023901859, guid: 318c37d4406d2f74bb22341a72296895,
     type: 3}
   Speed: 4
-  MinTimeToShoot: 0.25
+  MinTimeToShoot: 0.05
+  TimeBetweenShoots: 0.25
 --- !u!1 &1157117740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1003,7 @@ MonoBehaviour:
     type: 3}
   MinTimeToCreate: 1
   MaxTimeToCreate: 3
+  MeteorSpeed: 1
 --- !u!1 &1601447051
 GameObject:
   m_ObjectHideFlags: 0

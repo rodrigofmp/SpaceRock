@@ -10,7 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject LaserObject;
     public GameObject ExplosionObject;
     public float Speed = 4f;
-    public float MinTimeToShoot = 1f;    
+    public float MinTimeToShoot = 0.05f;    
+    public float TimeBetweenShoots = 1f;    
 
     void Start()
     {
@@ -44,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (_shootTimer < MinTimeToShoot)
+        if (_shootTimer < TimeBetweenShoots)
         {
             _shootTimer += Time.deltaTime;
         }        
@@ -57,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Shoot()
     {
-        if (MinTimeToShoot > _shootTimer)
+        if (TimeBetweenShoots > _shootTimer)
             return;
 
         _shootTimer = 0;
@@ -79,5 +80,13 @@ public class PlayerBehaviour : MonoBehaviour
 
             GameObject.Find("Main Camera").GetComponent<GamePlay>().ShowRestartButton();
         }
+    }
+
+    public void IncreaseShootFrequency()
+    {
+        if (TimeBetweenShoots * 0.9f < MinTimeToShoot)
+            return;
+
+        TimeBetweenShoots = TimeBetweenShoots * 0.9f;
     }
 }

@@ -14,6 +14,13 @@ public class GamePlay : MonoBehaviour
     {
         this.Points += 100;
         this.PointText.text = this.Points.ToString();
+
+
+        if (this.Points % 1000 == 0)
+        { 
+            GameObject.Find("Player").GetComponent<PlayerBehaviour>().IncreaseShootFrequency();
+            GameObject.Find("MeteorCreator").GetComponent<MeteorCreator>().IncreaseMeteorSpeed();
+        }
     }
 
     public void RestartGame()

@@ -7,6 +7,7 @@ public class MeteorCreator : MonoBehaviour
     public GameObject MeteorObject;
     public float MinTimeToCreate = 1f;
     public float MaxTimeToCreate = 3f;
+    public float MeteorSpeed = 5f;
 
     private float _timeToNextCreation;
     private float _countTimer;
@@ -32,12 +33,18 @@ public class MeteorCreator : MonoBehaviour
 
             Vector3 pos = transform.position;
             pos.x = Random.Range(_xMin, _xMax);
-            GameObject.Instantiate(MeteorObject, pos, Quaternion.Euler(0, 0, Random.Range(0, 359)));
+            var newMeteor = GameObject.Instantiate(MeteorObject, pos, Quaternion.Euler(0, 0, Random.Range(0, 359)));
+            newMeteor.GetComponent<MeteorBehaviour>().Speed = MeteorSpeed;
         }
     }
 
     void GenerateNextTime()
     {
         _timeToNextCreation = Random.Range(MinTimeToCreate, MaxTimeToCreate);
+    }
+
+    public void IncreaseMeteorSpeed()
+    {
+        MeteorSpeed = MeteorSpeed * 1.1f;
     }
 }
