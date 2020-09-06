@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class LaserBehaviour : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
+
+    public GameObject ExplosionObject;
     public float Speed = 5f;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        rb.velocity = Vector2.up * Speed;
+        _rb.velocity = Vector2.up * Speed;
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -28,6 +30,8 @@ public class LaserBehaviour : MonoBehaviour
         {
             coll.transform.GetComponent<MeteorBehaviour>().Hit();
             GameObject.Destroy(this.gameObject);
+
+            GameObject.Instantiate(ExplosionObject, this.transform.position, Quaternion.identity);
         }
     }
 }
