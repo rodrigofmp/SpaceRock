@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float shootTimer = 0f;
+    private Rigidbody2D _rb;
+    private float _shootTimer = 0f;
 
-    public float Speed = 4f;
-    public float MinTimeToShoot = 1f;
     public GameObject LaserObject;
+    public GameObject ExplosionObject;
+    public float Speed = 4f;
+    public float MinTimeToShoot = 1f;    
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -38,14 +39,14 @@ public class PlayerBehaviour : MonoBehaviour
             dir.x = 1;
         }
 
-        rb.velocity = dir * Speed;
+        _rb.velocity = dir * Speed;
     }
 
     void Update()
     {
-        if (shootTimer < MinTimeToShoot)
+        if (_shootTimer < MinTimeToShoot)
         {
-            shootTimer += Time.deltaTime;
+            _shootTimer += Time.deltaTime;
         }        
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -56,15 +57,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Shoot()
     {
-        if (MinTimeToShoot > shootTimer)
+        if (MinTimeToShoot > _shootTimer)
             return;
 
-        shootTimer = 0;
+        _shootTimer = 0;
 
         if (LaserObject != null)
         {
             Vector3 pos = this.transform.position;
             GameObject.Instantiate(LaserObject, pos, Quaternion.identity);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Meteor"))
+        {
+            GameObject.Instantiate(ExplosionObject, this.transform.position, Quaternion.identity);
+
+            GameObject.Destroy(this.gameObject);            
         }
     }
 }
