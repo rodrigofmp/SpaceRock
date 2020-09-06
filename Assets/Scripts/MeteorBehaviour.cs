@@ -7,6 +7,7 @@ public class MeteorBehaviour : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _renderer;
 
+    public GameObject ExplosionObject;
     public float Speed = 5f;
     public int Health = 3;
 
@@ -40,6 +41,7 @@ public class MeteorBehaviour : MonoBehaviour
 
         if (Health <= 0)
         {
+            GameObject.Instantiate(ExplosionObject, transform.position, Quaternion.identity);
             GameObject.Destroy(this.gameObject);
         }
     }
