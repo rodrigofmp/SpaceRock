@@ -19,8 +19,14 @@ public class LaserBehaviour : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "MainCamera")
+        if (coll.CompareTag("MainCamera"))
         {
+            GameObject.Destroy(this.gameObject);
+        }
+
+        if (coll.CompareTag("Meteor"))
+        {
+            coll.transform.GetComponent<MeteorBehaviour>().Hit();
             GameObject.Destroy(this.gameObject);
         }
     }
