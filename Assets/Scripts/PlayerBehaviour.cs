@@ -75,7 +75,9 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GameObject.Instantiate(ExplosionObject, this.transform.position, Quaternion.identity);
 
-            GameObject.Destroy(this.gameObject);            
+            GameObject.Destroy(this.gameObject);
+
+            GameObject.Find("Main Camera").GetComponent<GamePlay>().ShowRestartButton();
         }
     }
 }

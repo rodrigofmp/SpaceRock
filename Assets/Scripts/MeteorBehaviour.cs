@@ -41,6 +41,7 @@ public class MeteorBehaviour : MonoBehaviour
 
         if (Health <= 0)
         {
+            GameObject.Find("Main Camera").GetComponent<GamePlay>().AddPoints();
             GameObject.Instantiate(ExplosionObject, transform.position, Quaternion.identity);
             GameObject.Destroy(this.gameObject);
         }
